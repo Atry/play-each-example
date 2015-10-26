@@ -1,5 +1,7 @@
 package services
 
+import scala.concurrent.{ExecutionContext, Future}
+
 object ContactService {
 
   private val Data = Map(
@@ -11,14 +13,14 @@ object ContactService {
   /**
    * Fetches list of email of all contacts from a remote service.
    */
-  def getEmailList(): List[String] = {
+  def asyncGetEmailList()(implicit ec: ExecutionContext): Future[List[String]] = Future {
     Data.keys.toList
   }
 
   /**
    * Query the contact full name that corresponds to an email from a remote service.
    */
-  def getContactNameByEmail(email: String): String = {
+  def asyncGetContactNameByEmail(email: String)(implicit ec: ExecutionContext): Future[String] = Future {
     Data.get(email) match {
       case None => {
         throw new NoSuchElementException
