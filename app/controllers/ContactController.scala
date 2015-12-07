@@ -15,7 +15,7 @@ class ContactController extends Controller {
   /**
    * All the business logic of this application
    */
-  private def asyncContactsXhtml: Future[xml.Elem] = monadic[Future] {
+  private[controllers] def asyncContactsXhtml: Future[xml.Elem] = monadic[Future] {
     val emailList = asyncGetEmailList().each
     <html>
       <body>
